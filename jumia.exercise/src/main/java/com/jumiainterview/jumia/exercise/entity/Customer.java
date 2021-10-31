@@ -1,5 +1,7 @@
 package com.jumiainterview.jumia.exercise.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +28,15 @@ public class Customer {
 	private Boolean isValid;
 
 	public Customer() {
+	}
+
+	public Customer(Integer id, String name, String phone, Countries country, Boolean isValid) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.country = country;
+		this.isValid = isValid;
 	}
 
 	public Integer getId() {
@@ -72,6 +83,24 @@ public class Customer {
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", phone=" + phone + ", country=" + country + ", isValid="
 				+ isValid + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(country, isValid, name, phone);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		return country == other.country && Objects.equals(isValid, other.isValid) && Objects.equals(name, other.name)
+				&& Objects.equals(phone, other.phone);
 	}
 
 }

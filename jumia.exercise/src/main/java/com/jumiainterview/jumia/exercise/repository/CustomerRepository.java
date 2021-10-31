@@ -11,9 +11,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	@Query("select max(c.id) from Customer c")
 	public Integer findMaxId();
 
-	public boolean existsByPhone(String phone);
+	public boolean existsByPhoneOrName(String phone, String name);
 
 	public List<Customer> findByIsValidIsNull();
 
-	public List<Customer> findByPhone(String phone);
+	public List<Customer> findByPhoneOrName(String phone, String name);
 }
