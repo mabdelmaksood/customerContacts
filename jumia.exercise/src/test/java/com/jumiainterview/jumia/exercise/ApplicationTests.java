@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,6 +22,7 @@ import com.jumiainterview.jumia.exercise.enums.Countries;
 import com.jumiainterview.jumia.exercise.mapper.Mapper;
 import com.jumiainterview.jumia.exercise.repository.CustomerRepository;
 import com.jumiainterview.jumia.exercise.service.CustomerService;
+import com.jumiainterview.jumia.exercise.utils.PhoneNumberUtils;
 
 @SpringBootTest
 class ApplicationTests {
@@ -33,6 +34,10 @@ class ApplicationTests {
 
 	@Autowired
 	Mapper mapper;
+
+	@Autowired
+	PhoneNumberUtils utils;
+
 	@MockBean
 	CustomerRepository repo;
 
@@ -60,33 +65,18 @@ class ApplicationTests {
 	@Test
 	void testGetCustomersuccess() {
 		Customer customer = new Customer(1, "Dominique mekontchou", "(237) 691816558", Countries.Cameroon, true);
-		List<Customer> customers = new ArrayList<>();
-		customers.add(customer);
-		CustomerDTO customerDto = new CustomerDTO("Dominique mekontchou", "(237) 691816558", null, null);
+		CustomerDTO customerDto = new CustomerDTO(1, "Dominique mekontchou", "(237) 691816558", null, null);
 
-		when(repo.findByPhoneOrName(customerDto.getPhone(), customerDto.getName())).thenReturn(customers);
+		when(repo.findById(customerDto.getId())).thenReturn(Optional.of(customer));
 		assertEquals(HttpStatus.OK, service.getCustomer(customerDto).getStatusCode());
 	}
 
 	@Test
 	void testGetCustomerfailureNotFound() {
-		List<Customer> customers = new ArrayList<>();
-		CustomerDTO customerDto = new CustomerDTO("Daniel Makori", "(256) 714660221", null, null);
+		CustomerDTO customerDto = new CustomerDTO(1, "Daniel Makori", "(256) 714660221", null, null);
 
-		when(repo.findByPhoneOrName(customerDto.getPhone(), customerDto.getName())).thenReturn(customers);
+		when(repo.findById(customerDto.getId())).thenReturn(Optional.empty());
 		assertEquals(HttpStatus.NOT_FOUND, service.getCustomer(customerDto).getStatusCode());
-	}
-
-	@Test
-	void testGetCustomerFailureMultihits() {
-		List<Customer> customers = Stream
-				.of(new Customer(1, "Daniel Makori", "(237) 691816558", Countries.Cameroon, true),
-						new Customer(1, "Dominique mekontchou", "(256) 714660221", Countries.Uganda, true))
-				.collect(Collectors.toList());
-		CustomerDTO customerDto = new CustomerDTO("Dominique mekontchou", "(237) 691816558", null, null);
-
-		when(repo.findByPhoneOrName(customerDto.getPhone(), customerDto.getName())).thenReturn(customers);
-		assertEquals(HttpStatus.BAD_REQUEST, service.getCustomer(customerDto).getStatusCode());
 	}
 
 	@Test
@@ -101,37 +91,34 @@ class ApplicationTests {
 
 	@Test
 	void testdeleteCustomerSuccess() {
-		List<Customer> customers = Stream
-				.of(new Customer(1, "Daniel Makori", "(237) 691816558", Countries.Cameroon, true))
-				.collect(Collectors.toList());
-		CustomerDTO customerDto = new CustomerDTO("Daniel Makori", "(237) 691816558", null, null);
+		Optional<Customer> customers = Optional
+				.of(new Customer(1, "Daniel Makori", "(237) 691816558", Countries.Cameroon, true));
+		Integer customerId = 1;
 
-		when(repo.findByPhoneOrName(customerDto.getPhone(), customerDto.getName())).thenReturn(customers);
+		when(repo.findById(customerId)).thenReturn(customers);
 
-		assertEquals(HttpStatus.OK, service.deleteCustomer(customerDto).getStatusCode());
+		assertEquals(HttpStatus.OK, service.deleteCustomer(1).getStatusCode());
 
 	}
 
 	@Test
 	void testdeleteCustomerFailure() {
-		CustomerDTO customerDto = new CustomerDTO("Daniel Makori", "(237) 691816558", null, null);
+		Integer customerId = 1;
 
-		when(repo.findByPhoneOrName(customerDto.getPhone(), customerDto.getName())).thenReturn(new ArrayList<>());
+		when(repo.findById(customerId)).thenReturn(Optional.empty());
 
-		assertEquals(HttpStatus.BAD_REQUEST, service.deleteCustomer(customerDto).getStatusCode());
+		assertEquals(HttpStatus.BAD_REQUEST, service.deleteCustomer(customerId).getStatusCode());
 
 	}
 
 	@Test
 	void testUpdateCustomerSuccess() {
-		CustomerDTO customerDto = new CustomerDTO("Daniel Makori", "(237) 691816558", Countries.Cameroon, true);
+		CustomerDTO customerDto = new CustomerDTO(21, "Daniel Makori", "(237) 691816558", Countries.Cameroon, true);
 
 		Customer customer = new Customer(21, "Daniel Makori", "(256) 714660221", Countries.Uganda, true);
 		Customer newCustomer = mapper.mapDtoToCustomer(customerDto);
-		List<Customer> customers = new ArrayList<>();
-		customers.add(customer);
 
-		when(repo.findByPhoneOrName(customerDto.getPhone(), customerDto.getName())).thenReturn(customers);
+		when(repo.findById(customerDto.getId())).thenReturn(Optional.of(customer));
 		when(repo.saveAndFlush(newCustomer)).thenReturn(newCustomer);
 
 		assertEquals(HttpStatus.OK, service.updateCustomer(customerDto).getStatusCode());
@@ -139,27 +126,29 @@ class ApplicationTests {
 	}
 
 	@Test
-	void testUpdateCustomerFailureMultiHit() {
-		CustomerDTO customerDto = new CustomerDTO("Daniel Makori", "(237) 691816558", Countries.Cameroon, true);
-		List<Customer> customers = Stream
-				.of(new Customer(1, "Daniel Makori", "(256) 714660221", Countries.Uganda, true),
-						new Customer(1, "Dominique mekontchou", "(237) 691816558", Countries.Cameroon, true))
-				.collect(Collectors.toList());
+	void testUpdateCustomerFailureNotFound() {
+		CustomerDTO customerDto = new CustomerDTO(1, "Daniel Makori", "(237) 691816558", Countries.Cameroon, true);
 
-		when(repo.findByPhoneOrName(customerDto.getPhone(), customerDto.getName())).thenReturn(customers);
-
+		when(repo.findById(customerDto.getId())).thenReturn(Optional.empty());
 		assertEquals(HttpStatus.BAD_REQUEST, service.updateCustomer(customerDto).getStatusCode());
 
 	}
 
 	@Test
-	void testUpdateCustomerFailureNotFound() {
-		CustomerDTO customerDto = new CustomerDTO("Daniel Makori", "(237) 691816558", Countries.Cameroon, true);
-		List<Customer> customers = new ArrayList<>();
+	void testAddCountryAndValidation() {
+		Customer customer1 = new Customer(1, "Daniel Makori", "(256) 714660221", Countries.Uganda, true);
+		Customer customer2 = new Customer(1, "Daniel Makori", "(256) 714660221", null, null);
+		Customer customer3 = new Customer(17, "Chouf Malo", "(212) 691933626", Countries.Morocco, true);
+		Customer customer4 = new Customer(17, "Chouf Malo", "(212) 691933626", null, null);
+		Customer customer5 = new Customer(55, "invalid phone", "(0) 1111", null, false);
+		Customer customer6 = new Customer(55, "invalid phone", "(0) 1111", null, null);
+		utils.addCountryAndValidation(customer2);
+		utils.addCountryAndValidation(customer4);
+		utils.addCountryAndValidation(customer6);
 
-		when(repo.findByPhoneOrName(customerDto.getPhone(), customerDto.getName())).thenReturn(customers);
-		assertEquals(HttpStatus.BAD_REQUEST, service.updateCustomer(customerDto).getStatusCode());
-
+		assertEquals(customer1, customer2);
+		assertEquals(customer3, customer4);
+		assertEquals(customer5, customer6);
 	}
 
 }

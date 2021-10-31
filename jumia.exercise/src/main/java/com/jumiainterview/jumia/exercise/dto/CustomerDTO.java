@@ -6,6 +6,8 @@ import com.jumiainterview.jumia.exercise.enums.Countries;
 
 public class CustomerDTO {
 
+	private Integer id;
+
 	private String name;
 
 	private String phone;
@@ -18,12 +20,21 @@ public class CustomerDTO {
 		super();
 	}
 
-	public CustomerDTO(String name, String phone, Countries country, Boolean isValid) {
+	public CustomerDTO(Integer id, String name, String phone, Countries country, Boolean isValid) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.phone = phone;
 		this.country = country;
 		this.isValid = isValid;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -60,7 +71,8 @@ public class CustomerDTO {
 
 	@Override
 	public String toString() {
-		return "CustomerDTO [name=" + name + ", phone=" + phone + ", country=" + country + ", isValid=" + isValid + "]";
+		return "CustomerDTO [id=" + id + ", name=" + name + ", phone=" + phone + ", country=" + country + ", isValid="
+				+ isValid + "]";
 	}
 
 	@Override
