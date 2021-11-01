@@ -1,0 +1,27 @@
+version: '2'
+services:
+    jumia-fe:
+        container_name: customer-fe
+        build:
+            context: customers-ui
+            dockerfile: Dockerfile
+        image: jumia-fe:latest
+        ports:
+            - 3000:3000
+        networks:
+            - customer-network
+    jumia-be:
+        container_name: customer-be
+        build:
+            context: jumia.exercise
+            dockerfile: Dockerfile
+        image: jumia-be:latest
+        ports:
+            - 8080:8080
+        stdin_open: true
+        tty: true
+        networks:
+            - customer-network
+networks:
+    customer-network:
+        driver: bridge
