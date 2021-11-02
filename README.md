@@ -31,9 +31,9 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
-		<li><a href="#docker-building">Installation</a></li>
-		<li><a href="#docker-separate-images">Prerequisites</a></li>
-		<li><a href="#docker-compose">Installation</a></li>
+		<li><a href="#docker-building">Docker building</a></li>
+		<li><a href="#docker-separate-images">Docker separate images</a></li>
+		<li><a href="#docker-compose">Cocker compose</a></li>
 	  </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -110,7 +110,7 @@ before you start the project you need to have node.js (v16.3.0) and Apache maven
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Docker building
-###Docker separate images
+### Docker separate images
 
 1. In the repo move to backend project
 	```sh
@@ -139,7 +139,7 @@ before you start the project you need to have node.js (v16.3.0) and Apache maven
    ```
 9. Now you can access the front end from your browser at localhost:3030, also the backend api will be availabe at localhost:8080\api
 
-###Docker compose
+### Docker compose
 
 1. In the repo run the following command, it will build both images and start them.
 	```sh
