@@ -105,7 +105,7 @@ before you start the project you need to have node.js (v16.3.0) and Apache maven
 	```sh
 	npm start
 	```
-10. Now you can access the front end from your browser at localhost:3030, also the backend api will be availabe at localhost:8080\api
+10. Now you can access the front end from your browser at localhost:3000, also the backend api will be availabe at localhost:8080\api
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Docker building
@@ -136,7 +136,7 @@ before you start the project you need to have node.js (v16.3.0) and Apache maven
    ```sh
    docker run -p 3000:3000 jumia-fe
    ```
-9. Now you can access the front end from your browser at localhost:3030, also the backend api will be availabe at localhost:8080\api
+9. Now you can access the front end from your browser at localhost:3000, also the backend api will be availabe at localhost:8080\api
 
 ### Docker compose
 
@@ -144,7 +144,7 @@ before you start the project you need to have node.js (v16.3.0) and Apache maven
 	```sh
 	docker-compose up --build   
 	```
-2. Now you can access the front end from your browser at localhost:3030, also the backend api will be availabe at localhost:8080\api
+2. Now you can access the front end from your browser at localhost:3000, also the backend api will be availabe at localhost:8080\api
 
 
 <!-- USAGE EXAMPLES -->
