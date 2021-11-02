@@ -98,11 +98,25 @@ public class CustomerService {
 		}
 	}
 
-	public ResponseEntity<List<CustomerDTO>> readCustomersByCountry(Countries country) {
+	public ResponseEntity<List<CustomerDTO>> readCustomersByCountry(String[] countries) {
 		try {
-			return new ResponseEntity<>(mapper.mapAlltoDto(repo.findByCountry(country)), getHeaders(), HttpStatus.OK);
+			Countries[] countriesEnum = new Countries[countries.length];
+			for (int i = 0; i < countries.length; i++) {
+				countriesEnum[i] = Countries.valueOf(countries[i]);
+			}
+			return new ResponseEntity<>(mapper.mapAlltoDto(repo.findByCountryIn(countriesEnum)), getHeaders(),
+					HttpStatus.OK);
 		} catch (Exception e) {
 			logger.error("Failed in reading customers", e);
+			return new ResponseEntity<>(getHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	public ResponseEntity<List<CustomerDTO>> getValidCustomers(Boolean isValid) {
+		try {
+			return new ResponseEntity<>(mapper.mapAlltoDto(repo.findByIsValid(isValid)), getHeaders(), HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Failed in getting valid customers", e);
 			return new ResponseEntity<>(getHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -140,6 +154,10 @@ public class CustomerService {
 			return new ResponseEntity<>(e.getMessage(), getHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+
+	public ResponseEntity<Countries[]> getCountries() {
+		return new ResponseEntity<>(Countries.values(), getHeaders(), HttpStatus.OK);
 	}
 
 }

@@ -3,20 +3,36 @@ import Axios from 'axios';
 import dispatcher from '../dispachers/dispatcher';
 
 class CustomerStore extends EventEmitter {
-  initCustomers(customersList){
-    console.log(customersList);
-    this.customers = customersList;
-    this.emit('change');
-  }
   constructor() {
     super();
     this.initCustomers = this.initCustomers.bind(this);
+    this.initCountries = this.initCountries.bind(this);
+
     this.customers = [
     ];
+
+    this.countries = [
+    ];
+
     Axios.get('http://localhost:8080/api/readcustomers')
       .then(response => {
         this.initCustomers(response.data)
       });
+
+      Axios.get('http://localhost:8080/api/countries')
+      .then(response => {
+        this.initCountries(response.data)
+      });
+  }
+
+  initCustomers(customersList){
+    this.customers = customersList;
+    this.emit('change');
+  }
+
+  initCountries(countriesList){
+    this.countries = countriesList;
+    this.emit('change');
   }
 
   createCustomer(customer) {
@@ -41,6 +57,10 @@ class CustomerStore extends EventEmitter {
 
   getAll() {
     return this.customers;
+  }
+
+  getCountries(){
+    return this.countries;
   }
 
   handleActions(action) {

@@ -1,17 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
-import customerStore  from './stores/CustomerStore';
 
 export default class CustomerTable extends Component {
     constructor(props){
         super(props);
         this.state ={
             columns:[
-                { dataField: 'id', text: 'Id', sort: true },
                 { dataField: 'name', text: 'Name', sort: true },
                 { dataField: 'phone', text: 'Phone', sort: true },
                 { dataField: 'country', text: 'Country', sort: true },

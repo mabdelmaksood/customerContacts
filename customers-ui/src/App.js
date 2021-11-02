@@ -1,27 +1,31 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
 import AddCustomer from './components/AddCustomer';
-import Customers from './components/Customers';
-import  CustomerStore from './components/stores/CustomerStore';
-import UpdateCustomer from './components/UpdateCustomer';
-import Table from 'react-bootstrap/Table';
+import CustomerStore from './components/stores/CustomerStore';
+import * as CustomerActions from './components/actions/CustomerActions';
 import CustomerTable from './components/CustomerTable';
+import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 
 class App extends React.Component {
   constructor(){
     super();
     this.getCustomers = this.getCustomers.bind(this);
+    this.getCountries = this.getCountries.bind(this);
+    this.setSelectedCountries = this.setSelectedCountries.bind(this);
     this.state = {
       customers: CustomerStore.getAll(),
+      countries: CustomerStore.getCountries(),
+      selectedCountries: [],
     };
   }
   // eslint-disable-next-line react/no-deprecated
   componentWillMount() {
     CustomerStore.on('change', this.getCustomers );
+    CustomerStore.on('change', this.getCountries );
   }
   componentWillUnmount() {
     CustomerStore.removeListener('change', this.getCustomers);
+    CustomerStore.removeListener('change', this.getCountries);
   }
 
 
@@ -31,16 +35,34 @@ class App extends React.Component {
     });
   }
 
+  getCountries() {
+    this.setState({
+      countries: CustomerStore.getCountries(),
+    });
+  }
+
+  setSelectedCountries(selectedCountries){
+    CustomerActions.customersByCountry(selectedCountries);
+  }
   
   render() {
+    const countriesOptions = this.state.countries||[].map(country=> {
+      return ({key: country, label: country});
+    });
+    console.log(countriesOptions);
     return (
       <div className="App">
         <Header />
-          <div >
-            <AddCustomer  />
-            <CustomerTable customers={this.state.customers}/>
-          </div>
-          </div>
+        <div >
+          <AddCustomer  />
+          <DropdownMultiselect
+              options={["Cameroon", "Ethiopia", "Morocco", "Mozambique", "Uganda"]}
+              name="countries"
+              handleOnChange={this.setSelectedCountries}
+            />
+          <CustomerTable customers={this.state.customers}/>
+        </div>
+      </div>
         
         
     );

@@ -24,6 +24,24 @@ export function createCustomer(name, phone) {
       }
     });
 }
+
+export function customersByCountry(selectedCountries){
+  console.log(selectedCountries);
+  Axios.post('http://localhost:8080/api/customersbycountry', selectedCountries)
+  .then(response => {
+    if(response.status === 200){
+      dispatcher.dispatch({
+        type: 'RECEIVE_CUSTOMERS',
+        customers:response.data,
+      });
+    } else{
+      dispatcher.dispatch({
+        type:'ADD_ERROR_HANDLE',
+        selectedCountries,
+      });
+    }
+  });
+}
   
 export function deleteCustomer(customer) {
   const url = `http://localhost:8080/api/deletecustomer/${customer.id}`;

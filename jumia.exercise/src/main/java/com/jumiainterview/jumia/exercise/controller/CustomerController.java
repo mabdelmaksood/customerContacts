@@ -28,14 +28,24 @@ public class CustomerController {
 		return service.createCustomer(customer);
 	}
 
+	@RequestMapping(value = "countries", method = RequestMethod.GET)
+	public ResponseEntity<Countries[]> getCountries() {
+		return service.getCountries();
+	}
+
 	@RequestMapping(value = "readcustomers", method = RequestMethod.GET)
 	public ResponseEntity<List<CustomerDTO>> readCustomers() {
 		return service.readCustomers();
 	}
 
-	@RequestMapping(value = "customersbycountry", method = RequestMethod.GET)
-	public ResponseEntity<List<CustomerDTO>> readCustomers(@RequestBody Countries country) {
-		return service.readCustomersByCountry(country);
+	@RequestMapping(value = "customersbycountry", method = RequestMethod.POST)
+	public ResponseEntity<List<CustomerDTO>> customersByCountry(@RequestBody String[] selectedCountries) {
+		return service.readCustomersByCountry(selectedCountries);
+	}
+
+	@RequestMapping(value = "customersbystate", method = RequestMethod.GET)
+	public ResponseEntity<List<CustomerDTO>> getValidCustomers(@RequestBody Boolean isValid) {
+		return service.getValidCustomers(isValid);
 	}
 
 	@RequestMapping(value = "getcustomer", method = RequestMethod.GET)
