@@ -31,11 +31,12 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
-		<li><a href="#docker-building">Installation</a></li>
-			<ul>
-				<li><a href="#docker-separate-images">Prerequisites</a></li>
-				<li><a href="#docker-compose">Installation</a></li>
-			</ul>
+	<li><a href="#docker-building">Installation</a>
+	  <ul>
+	    <li><a href="#docker-separate-images">Prerequisites</a></li>
+	    <li><a href="#docker-compose">Installation</a></li>
+	  </ul>
+	</li>
 		
       </ul>
     </li>
