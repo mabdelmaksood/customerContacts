@@ -1,7 +1,6 @@
 <div id="top"></div>
 
-[![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/mohamed-abdelmaksoud-sw-engineer/]
-
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <br />
 
@@ -33,7 +32,7 @@
         <li><a href="#installation">Installation</a></li>
 		<li><a href="#docker-building">Docker building</a></li>
 		<li><a href="#docker-separate-images">Docker separate images</a></li>
-		<li><a href="#docker-compose">Cocker compose</a></li>
+		<li><a href="#docker-compose">Docker compose</a></li>
 	  </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -182,6 +181,7 @@ Project Link: [https://github.com/mabdelmaksood/jumia.exercise](https://github.c
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/mohamed-abdelmaksoud-sw-engineer/
+[product-screenshot]: images/toBeAddedLater
 
