@@ -52,9 +52,6 @@
 
 * [Spring Boot](https://spring.io/projects/spring-boot)
 * [React.js](https://reactjs.org/)
-* [SQLite](https://www.sqlite.org/index.html)
-* [LiquiBase](https://www.liquibase.org/)
-* [react-bootstrap-table2](https://react-bootstrap-table.github.io/react-bootstrap-table2/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -132,9 +129,9 @@ before you start the project you need to have java JDK, node.js (v16.3.0), Apach
    ```sh
 	docker build -t jumia-fe .  
    ```
-8. after the docker build is done you can run the docker image into a container 
+8. after the docker build is done you can run the docker image into a container, adding -it runs it in interactive mode, which is a work around for the famous react-scripts issue with docker.
    ```sh
-   docker run -p 3000:3000 jumia-fe
+   docker run -it -p 3000:3000 jumia-fe
    ```
 9. Now you can access the front end from your browser at localhost:3000, also the backend api will be availabe at localhost:8080\api
 
