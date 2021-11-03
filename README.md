@@ -45,7 +45,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-[![Product Name Screen Shot][product-screenshot]]
+[![Product Name Screen Shot][product-screenshot]
 
 
 ### Built With
@@ -65,7 +65,7 @@
 
 ### Prerequisites
 
-before you start the project you need to have node.js (v16.3.0) and Apache maven installed on your device
+before you start the project you need to have java JDK, node.js (v16.3.0), Apache maven, And Docker installed on your device
 
 ### Installation
 
@@ -150,9 +150,10 @@ before you start the project you need to have node.js (v16.3.0) and Apache maven
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+The application is simple:
+ -At the top right after the header, the application has a simple form with two inputs for quick customer creation.
+ -Then right beneth the create user form, we have a multi select dropdown for the selection of countries and state to view customers from.
+ -And at the end we have the actual table that shows the customers corresponding to te selected countries, the headers of the columns have arrows that can be used for sorting, and at the footer of the table you will fing the page size and page number controls.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -161,12 +162,14 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [] Feature 1
-- [] Feature 2
-- [] Feature 3
-    - [] Nested Feature
+- Getting Multiselect DropDown Options from backend instead of being hardcoded in front end, to simplify adding new countries and regexes.
+- making backend in charge of pagination and sorting instead of frontend.
+- Adding an "update customer in place" feature.
+- Adding a delete button in each row to enable fast deletion of customers.
+- adding Encryption to request body.
+- change logging to a rolling log file that changes daily for easier log maintainance.
+- User Authentication and user privilages should be integerated.
 
-See the [open issues](https://github.com/mabdelmaksood/jumia.exercise/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
