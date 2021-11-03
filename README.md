@@ -62,7 +62,7 @@
 
 ### Prerequisites
 
-before you start the project you need to have java JDK, node.js (v16.3.0), Apache maven, And Docker installed on your device
+before you start the project you need to have java JDK, node.js (v16.3.0), Apache maven, And Docker installed on your device, also nothing should be running on ports 8080 and 3000 on your device.
 
 ### Installation
 
@@ -137,7 +137,7 @@ before you start the project you need to have java JDK, node.js (v16.3.0), Apach
 
 ### Docker compose
 
-1. In the repo run the following command, it will build both images and start them.
+1. In the repo run the following command, it will build both images and start them, you can ignore the "--build" parameter if you have already built the images separately before.
 	```sh
 	docker-compose up --build   
 	```
