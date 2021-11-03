@@ -45,7 +45,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-[![Product Name Screen Shot][product-screenshot]
+![Product Name Screen Shot][product-screenshot]
 
 
 ### Built With
@@ -150,10 +150,9 @@ before you start the project you need to have java JDK, node.js (v16.3.0), Apach
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-The application is simple:
- -At the top right after the header, the application has a simple form with two inputs for quick customer creation.
- -Then right beneth the create user form, we have a multi select dropdown for the selection of countries and state to view customers from.
- -And at the end we have the actual table that shows the customers corresponding to te selected countries, the headers of the columns have arrows that can be used for sorting, and at the footer of the table you will fing the page size and page number controls.
+The application is simple. At the top right after the header, the application has a simple form with two inputs for quick customer creation. 
+ Then right beneth the create user form, we have a multi select dropdown for the selection of countries and state to view customers from.
+ And at the end we have the actual table that shows the customers corresponding to te selected countries, the headers of the columns have arrows that can be used for sorting, and at the footer of the table you will fing the page size and page number controls.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
