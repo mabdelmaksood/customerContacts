@@ -22,5 +22,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
 	public List<Customer> findByCountryIn(Countries[] country);
 
+	public List<Customer> findByIsValidOrCountryIn(Boolean isValid, Countries[] country);
+
 	public List<Customer> findByIsValid(Boolean isValid);
+
 }

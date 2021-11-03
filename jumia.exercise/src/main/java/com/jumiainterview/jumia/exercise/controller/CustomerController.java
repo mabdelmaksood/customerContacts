@@ -1,8 +1,10 @@
 package com.jumiainterview.jumia.exercise.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +42,10 @@ public class CustomerController {
 
 	@RequestMapping(value = "customersbycountry", method = RequestMethod.POST)
 	public ResponseEntity<List<CustomerDTO>> customersByCountry(@RequestBody String[] selectedCountries) {
-		return service.readCustomersByCountry(selectedCountries);
+		if (selectedCountries.length > 0) {
+			return service.readCustomersByCountry(selectedCountries);
+		}
+		return new ResponseEntity<>(new ArrayList<CustomerDTO>(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "customersbystate", method = RequestMethod.GET)

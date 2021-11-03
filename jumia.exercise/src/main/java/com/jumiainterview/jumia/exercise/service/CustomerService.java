@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class CustomerService {
 	Mapper mapper;
 
 	Logger logger = LoggerFactory.getLogger(CustomerService.class);
+
+	private static String IN_VALID = "In Valid";
 
 	private HttpHeaders getHeaders() {
 		HttpHeaders headers = new HttpHeaders();
@@ -100,12 +103,25 @@ public class CustomerService {
 
 	public ResponseEntity<List<CustomerDTO>> readCustomersByCountry(String[] countries) {
 		try {
-			Countries[] countriesEnum = new Countries[countries.length];
-			for (int i = 0; i < countries.length; i++) {
-				countriesEnum[i] = Countries.valueOf(countries[i]);
+			boolean inValid = ArrayUtils.contains(countries, IN_VALID);
+			if (inValid) {
+				countries = ArrayUtils.remove(countries, ArrayUtils.indexOf(countries, IN_VALID));
 			}
-			return new ResponseEntity<>(mapper.mapAlltoDto(repo.findByCountryIn(countriesEnum)), getHeaders(),
-					HttpStatus.OK);
+			List<Customer> customers;
+			if (countries.length == 0) {
+				customers = repo.findByIsValid(!inValid);
+			} else {
+				Countries[] countriesEnum = new Countries[countries.length];
+				for (int i = 0; i < countries.length; i++) {
+					countriesEnum[i] = Countries.valueOf(countries[i]);
+				}
+				if (inValid) {
+					customers = repo.findByIsValidOrCountryIn(!inValid, countriesEnum);
+				} else {
+					customers = repo.findByCountryIn(countriesEnum);
+				}
+			}
+			return new ResponseEntity<>(mapper.mapAlltoDto(customers), getHeaders(), HttpStatus.OK);
 		} catch (Exception e) {
 			logger.error("Failed in reading customers", e);
 			return new ResponseEntity<>(getHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);

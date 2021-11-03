@@ -15,7 +15,7 @@ class App extends React.Component {
     this.state = {
       customers: CustomerStore.getAll(),
       countries: CustomerStore.getCountries(),
-      selectedCountries: [],
+      selectedCountries : ["Cameroon", "Ethiopia", "Morocco", "Mozambique", "Uganda", "In Valid"],
     };
   }
   // eslint-disable-next-line react/no-deprecated
@@ -43,6 +43,9 @@ class App extends React.Component {
 
   setSelectedCountries(selectedCountries){
     CustomerActions.customersByCountry(selectedCountries);
+    this.setState({
+      selectedCountries, 
+    });
   }
   
   render() {
@@ -56,9 +59,10 @@ class App extends React.Component {
         <div >
           <AddCustomer  />
           <DropdownMultiselect
-              options={["Cameroon", "Ethiopia", "Morocco", "Mozambique", "Uganda"]}
+              options={["Cameroon", "Ethiopia", "Morocco", "Mozambique", "Uganda", "In Valid"]}
               name="countries"
               handleOnChange={this.setSelectedCountries}
+              selected = {this.state.selectedCountries}
             />
           <CustomerTable customers={this.state.customers}/>
         </div>
