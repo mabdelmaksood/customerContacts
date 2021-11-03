@@ -45,7 +45,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
+[![Product Name Screen Shot][product-screenshot]]
 
 
 ### Built With
@@ -183,5 +183,5 @@ Project Link: [https://github.com/mabdelmaksood/jumia.exercise](https://github.c
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/mohamed-abdelmaksoud-sw-engineer/
-[product-screenshot]: images/toBeAddedLater
+[product-screenshot]:  screenshot.JPG
 
