@@ -176,7 +176,7 @@ The application is simple. At the top right after the header, the application ha
 
 Mohamed Abdelmaksood  - mabdelmaksood93@gmail.com
 
-Project Link: [https://github.com/mabdelmaksood/jumia.exercise](https://github.com/mabdelmaksood/jumia.exercise)
+Project Link: [https://github.com/mabdelmaksood/customerContacts](https://github.com/mabdelmaksood/customerContacts)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
